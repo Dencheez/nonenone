@@ -1,0 +1,354 @@
+:root {
+  --bg: #fff;
+  --text: #111;
+  --muted: #8e8e93;
+  --seg-bg: #e9e9eb;
+  --accent: #2f5bea;
+  --radius: 14px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+
+/* Запрещаем выделение текста при двойном тапе, чтобы работало копирование */
+.row,
+.row * {
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 12px 8px 8px;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.icon-btn {
+  background: none;
+  border: 0;
+  font-size: 32px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 8px 16px 12px;
+  padding: 3px;
+  background: var(--seg-bg);
+  border-radius: 12px;
+}
+.seg {
+  border: 0;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.seg.active {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 16px;
+}
+
+.empty {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+/* Карточки */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+.card {
+  border-radius: 18px;
+  padding: 18px;
+  color: #12263a;
+  background: linear-gradient(135deg, #d8f0ff, #e6f7ee 60%, #fdf4d9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+.card-org {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 2px 0 14px;
+}
+.card-row {
+  display: flex;
+  gap: 14px;
+}
+.avatar {
+  width: 84px;
+  height: 108px;
+  flex: none;
+  border-radius: 10px;
+  background: rgba(18, 38, 58, 0.12);
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 700;
+}
+.card-fields {
+  margin: 0;
+  min-width: 0;
+}
+.card-fields dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+.card-fields dt:first-child {
+  margin-top: 0;
+}
+.card-fields dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.card-number {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+/* Кнопки */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+.actions.bottom {
+  margin-top: auto;
+}
+.btn {
+  height: 52px;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--accent);
+}
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn.secondary {
+  background: #fff;
+  color: var(--accent);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Реквизиты — список */
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.row.flash {
+  background: rgba(47, 91, 234, 0.12);
+}
+.row-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.row-value {
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+.copy-icon {
+  font-size: 22px;
+  color: #555;
+  padding-left: 12px;
+}
+
+/* Форма */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.field input,
+.field select {
+  font-size: 16px; /* 16px — иначе iOS приблизит экран при фокусе */
+  padding: 12px;
+  border: 1px solid #d1d1d6;
+  border-radius: 10px;
+  background: #fff;
+  width: 100%;
+}
+.hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0;
+}
+.hint.center {
+  text-align: center;
+}
+
+/* Диалог и шторка */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 10;
+}
+.dialog {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+}
+.dialog h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.dialog p {
+  margin: 0 0 16px;
+  color: #444;
+}
+.dialog-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sheet-overlay {
+  place-items: end center;
+  padding: 0;
+}
+.sheet {
+  background: #fff;
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  padding: 18px 18px calc(28px + var(--safe-bottom));
+  animation: up 0.25s ease-out;
+}
+@keyframes up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sheet-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.sheet-sub {
+  text-align: center;
+  color: #444;
+  margin: 24px 0 12px;
+}
+.sheet-code {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 16px 0 12px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(90px + var(--safe-bottom));
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  z-index: 20;
+}
